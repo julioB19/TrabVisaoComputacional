@@ -3,12 +3,14 @@
 #####################################
 import cv2
 import numpy as np
+from pathlib import Path
 from scipy import ndimage as ndi
 from skimage.feature import peak_local_max
 from skimage.segmentation import watershed
 from skimage import color
 
-img = cv2.imread("FVC/WaterShed/coins.jpeg")
+img_path = Path(__file__).parent / "coins.jpeg"
+img = cv2.imdecode(np.fromfile(img_path, dtype=np.uint8), cv2.IMREAD_COLOR)
 
 filtro = cv2.pyrMeanShiftFiltering(img, 20, 40)
 gray = cv2.cvtColor(filtro, cv2.COLOR_BGR2GRAY)
@@ -105,5 +107,3 @@ cv2.destroyAllWindows()
 
 # cv.waitKey(0)
 # cv.destroyAllWindows()
-
-
